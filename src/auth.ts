@@ -1,17 +1,18 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 
 
 @Controller('auth')
 
 export class AuthController {
+  data: any[] = [];
   
   @Post('signup')
   async signup(@Body() form) {
-     let data=[]
-    
-     data.push(form);
-     console.log(data);
+     this.data.push(form);
+     console.log(this.data);
   } 
+   
 }
+
 
 
