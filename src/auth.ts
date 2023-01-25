@@ -1,17 +1,21 @@
-import { Controller, Post, Body } from '@nestjs/common';
-
+import { Controller, Post, Body, Injectable } from '@nestjs/common';
+import { data } from './data';
 
 @Controller('auth')
-
+@Injectable()
 export class AuthController {
-  data: any[] = [];
   
   @Post('signup')
+
   async signup(@Body() form) {
-     this.data.push(form);
-     console.log(this.data);
+    
+     data?.push(form);
+     console.log(data);
+     return form
+
   } 
-   
+
+  
 }
 
 

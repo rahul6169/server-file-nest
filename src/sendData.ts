@@ -1,14 +1,15 @@
-import { Controller,Get } from '@nestjs/common';
-import { AuthController } from './auth';
+import { Controller,Get, Injectable } from '@nestjs/common';
+import { data } from './data';
 
-@Controller('data')
-
+@Controller('auth')
+@Injectable()
 export class DataController {
     
-  data:any[]=[{"userName":"Rahul","email":"rahul@gmail.com","number":"9976078760","contactName":"Rahul"}]
-  @Get()
-  getData(){
-    return this.data
+  @Get('signup')
+  getName(){
+    console.log(data)   
+    return data
+    
   }
   } 
    
