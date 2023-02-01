@@ -1,5 +1,6 @@
 export const merchantsData: Merchant[] = [];
 export interface Merchant {
+  archived?:boolean,
   id?: number;
   userName?: string;
   email?: string;
