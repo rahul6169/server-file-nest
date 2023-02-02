@@ -20,13 +20,21 @@ export class MerchantService {
     return getMerchantData;
   }
 
-  updateMerchant(id: number) {
+  getMerchantById(id: number) {
     const editMerchantData = merchantsData.find(
       (merchant) => merchant?.id == id,
     );
 
     return editMerchantData;
   }
+  updateMerchant(formValues, id) {
+    const oldMerchantDataRemovedList = merchantsData.filter(
+      (merchant) => merchant?.id != id,
+    );
+    oldMerchantDataRemovedList.push(formValues);
+    return formValues;
+  }
+
   deleteMerchant(id: number) {
     const deleteMerchantData = merchantsData.find(
       (merchant) => merchant?.id == id,
