@@ -14,7 +14,10 @@ export class MerchantService {
   }
 
   getAllMerchants(): Merchant[] {
-    return merchantsData;
+    const getMerchantData = merchantsData.filter(
+      (merchant) => merchant.archived == false,
+    );
+    return getMerchantData;
   }
 
   updateMerchant(id: number) {
