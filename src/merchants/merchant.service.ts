@@ -1,26 +1,41 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { Merchant, merchantsData } from './merchant.constant';
+import { Merchants, MerchantsDocument } from './merchant.schema';
+
 @Injectable()
 export class MerchantService {
-  createMerchant(merchantData: Merchant): Merchant {
+  constructor(
+    @InjectModel(Merchants.name)
+    private merchantModel: Model<MerchantsDocument>,
+  ) {}
+  async createMerchant(merchantData: Merchant): Promise<Merchant> {
     const idUpdatedMerchantData = {
       ...merchantData,
-      id: Math.random() * 5,
+      // id: Math.random() * 5,
       archived: false,
     };
-    merchantsData?.push(idUpdatedMerchantData);
+    // merchantsData?.push(idUpdatedMerchantData);
     console.log(merchantsData);
-    return idUpdatedMerchantData;
+    const createdMerchant = await this.merchantModel.create(
+      idUpdatedMerchantData,
+    );
+    // console.log(createdMerchant);
+
+    return createdMerchant;
   }
 
-  getAllMerchants(): Merchant[] {
+  async getAllMerchants(): Promise<Merchant[]> {
     const getMerchantData = merchantsData.filter(
       (merchant) => merchant.archived == false,
     );
-    return getMerchantData;
+    const find = await this.merchantModel.find({ getMerchantData }).exec();
+    console.log(find, 'find');
+    return find;
   }
 
-  getMerchantById(id: number) {
+  async getMerchantById(id: number) {
     const editMerchantData = merchantsData.find(
       (merchant) => merchant?.id == id,
     );
@@ -45,7 +60,8 @@ export class MerchantService {
     const deletedMerchantData = merchantsData.filter(
       (merchant) => merchant.archived == false,
     );
-    console.log('deleteData', deletedMerchantData);
+
+    // console.log('deleteData', deletedMerchantData);
     return deletedMerchantData;
   }
 }
