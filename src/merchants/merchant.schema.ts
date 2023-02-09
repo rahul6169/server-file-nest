@@ -8,7 +8,7 @@ export class Merchants {
   @Prop()
   archived?: boolean;
   @Prop()
-  id?: number;
+  id?: string;
   @Prop()
   userName?: string;
   @Prop()
