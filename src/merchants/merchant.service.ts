@@ -30,38 +30,55 @@ export class MerchantService {
     const getMerchantData = merchantsData.filter(
       (merchant) => merchant.archived == false,
     );
-    const find = await this.merchantModel.find({ getMerchantData }).exec();
-    console.log(find, 'find');
+    const find = await this.merchantModel.find({ archived: false }).exec();
+    // console.log(find, 'find');
     return find;
   }
 
-  async getMerchantById(id: number) {
-    const editMerchantData = merchantsData.find(
-      (merchant) => merchant?.id == id,
-    );
+  async getMerchantById(_id: string) {
+    // const editMerchantData = merchantsData.find(
+    //   (merchant) => merchant?.id == id,
+    // );
+    const editMerchantData = await this.merchantModel.findOne({ _id });
+    console.log(editMerchantData);
 
     return editMerchantData;
   }
-  updateMerchant(formValues, id) {
-    const oldMerchantDataRemovedList = merchantsData.filter(
-      (merchant) => merchant?.id != id,
-    );
-    oldMerchantDataRemovedList.push(formValues);
-    return formValues;
+  async updateMerchant(formValues, _id) {
+    // const oldMerchantDataRemovedList = merchantsData.filter(
+    //   (merchant) => merchant?.id != id,
+    // );
+    const oldMerchantDataRemovedList =
+      await this.merchantModel.findOneAndUpdate({ _id }, formValues, {
+        new: true,
+      });
+    // oldMerchantDataRemovedList.push(formValues);
+    return oldMerchantDataRemovedList;
   }
 
-  deleteMerchant(id: number) {
-    const deleteMerchantData = merchantsData.find(
-      (merchant) => merchant?.id == id,
-    );
-    if (deleteMerchantData) {
-      deleteMerchantData.archived = true;
-    }
-    const deletedMerchantData = merchantsData.filter(
-      (merchant) => merchant.archived == false,
-    );
+  // async deleteMerchant(_id: string) {
+  // const deleteMerchantData = merchantsData.find(
+  //   (merchant) => merchant?.id == id,
+  // );
+  // if (deleteMerchantData) {
+  //   deleteMerchantData.archived = true;
+  // }
+  // const deletedMerchantData = merchantsData.filter(
+  //   (merchant) => merchant.archived == false,
+  // );
 
-    // console.log('deleteData', deletedMerchantData);
-    return deletedMerchantData;
+  // const deletedData = await this.merchantModel.deleteOne(
+  //   { _id },
+  //   { archived: true },
+  // );
+  async deleteMerchant(_id: string) {
+    const deletedData = await this.merchantModel.findOneAndUpdate(
+      { _id },
+      { archived: true },
+      { new: true },
+    );
+    return deletedData;
   }
+  //   return { archived: false };
+  // }
 }
