@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type CommunityUsersCommunity {
+  id          String @map("_id") @db.ObjectId
+  referenceId String @db.ObjectId
+  type        String
+}
+
+model communities {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  v              Int      @map("__v")
+  archived       Boolean
+  createdAt      DateTime @db.Date
+  eventType      String?
+  followersCount Int
+  name           String
+  organiserId    String?  @db.ObjectId
+  referenceId    String   @db.ObjectId
+  type           String
+  updatedAt      DateTime @db.Date
+}
+
+model community_users {
+  id        String                  @id @default(auto()) @map("_id") @db.ObjectId
+  v         Int                     @map("__v")
+  archived  Boolean
+  community CommunityUsersCommunity
+  createdAt DateTime                @db.Date
+  updatedAt DateTime                @db.Date
+  userId    String                  @db.ObjectId
+
+  @@map("community-users")
+}
+
+model merchants {
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
+  archived           Boolean   @default(false)
+  contactEmail       String?
+  contactName        String?
+  contactPhoneNumber Float?
+  dateInput          DateTime? @db.Date
+  email              String
+  notesInput         String?
+  number             Float?
+  payments           String?
+  percent            Int?
+  type               String?
+  userName           String
+  createdAt          DateTime  @default(now()) @db.Date
+  updatedAt          DateTime  @updatedAt
+}
+
+model userInfo {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}

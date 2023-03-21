@@ -3,13 +3,20 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Merchant, merchantsData } from './merchant.constant';
 import { Merchants, MerchantsDocument } from './merchant.schema';
-
+import { PrismaService } from 'prisma/prisma.service';
 @Injectable()
 export class MerchantService {
   constructor(
     @InjectModel(Merchants.name)
     private merchantModel: Model<MerchantsDocument>,
-  ) {}
+    private readonly prisma: PrismaService,
+  ) {
+    setTimeout(() => {
+      this.createEmail().then((data) => {
+        console.log(data);
+      });
+    }, 3000);
+  }
   async createMerchant(merchantData: Merchant): Promise<Merchant> {
     const idUpdatedMerchantData = {
       ...merchantData,
@@ -81,4 +88,13 @@ export class MerchantService {
   }
   //   return { archived: false };
   // }
+
+  async createEmail() {
+    return await this.prisma.merchants.create({
+      data: {
+        email: 'elsa@prisma.idfo',
+        userName: 'rahulgd12321',
+      },
+    });
+  }
 }
