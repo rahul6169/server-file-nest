@@ -11,11 +11,14 @@ export class MerchantService {
     private merchantModel: Model<MerchantsDocument>,
     private readonly prisma: PrismaService,
   ) {
-    setTimeout(() => {
-      this.createEmail().then((data) => {
-        console.log(data);
-      });
-    }, 3000);
+    // setTimeout(() => {
+    //   this.createEmail().then((email) => {
+    //     console.log(email, 'created');
+    //   });
+    //   this.readData().then((data) => {
+    //     console.log(data, 'read');
+    //   });
+    // }, 3000);
   }
   async createMerchant(merchantData: Merchant): Promise<Merchant> {
     const idUpdatedMerchantData = {
@@ -92,8 +95,18 @@ export class MerchantService {
   async createEmail() {
     return await this.prisma.merchants.create({
       data: {
-        email: 'elsa@prisma.idfo',
-        userName: 'rahulgd12321',
+        email: 'rahulbalakrishnan6169@gmail.com',
+        userName: 'rahul6169',
+      },
+    });
+  }
+
+  async readData() {
+    return await this.prisma.merchants.findMany({
+      where: {
+        email: {
+          endsWith: 'gmail.com',
+        },
       },
     });
   }
