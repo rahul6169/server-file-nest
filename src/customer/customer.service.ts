@@ -13,10 +13,14 @@ export class CustomerService {
       data,
     });
   }
-
   async getCustomer(id: string): Promise<Customer> {
-    return (await this.prisma.merchants.findUnique({
+    return (await this.prisma.customer.findUnique({
       where: { id: id },
     })) as unknown as Customer;
+  }
+  async deleteCustomer(id: string): Promise<Customer> {
+    return (await this.prisma.customer.delete({
+      where: { id: id },
+    })) as Customer;
   }
 }

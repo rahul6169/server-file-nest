@@ -12,10 +12,6 @@ export class CustomerResolver {
   async dummy() {
     return;
   }
-  // @Mutation(() => Customer)
-  // async createCustomer(@Args('id') id: string): Promise<Customer> {
-  //   return await this.customerService.createCustomer(id);
-  // }
 
   @Mutation(() => Customer)
   async createCustomer(
@@ -25,8 +21,13 @@ export class CustomerResolver {
 
     return await this.customerService.createCustomer(createAuthUserDto);
   }
-  @Mutation(() => Customer)
+  @Query(() => Customer)
   async getCustomer(@Args('id') id: string): Promise<Customer> {
     return await this.customerService.getCustomer(id);
+  }
+
+  @Mutation(() => Customer)
+  async deleteCustomer(@Args('id') id: string): Promise<Customer> {
+    return await this.customerService.deleteCustomer(id);
   }
 }

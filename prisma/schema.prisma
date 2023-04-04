@@ -62,12 +62,14 @@ model userInfo {
 }
 
 model customer {
-  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
   userName           String
   email              String
-  archived           Boolean @default(false)
+  archived           Boolean  @default(false)
   number             String
   contactName        String
   contactEmail       String
   contactPhoneNumber String
+  createdAt          DateTime @default(now()) @db.Date
+  updatedAt          DateTime @updatedAt
 }

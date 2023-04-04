@@ -28,4 +28,7 @@ export class Customer {
 
   @Field()
   createdAt?: Date;
+
+  @Field()
+  updatedAt?: Date;
 }
