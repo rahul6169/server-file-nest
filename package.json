@@ -6,7 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-   
+    "serve-api": "nx serve server-api",
+    "prisma:generate": "npx prisma generate --schema prisma/schema.prisma",
+    "postinstall": "npm run prisma:db:push && npm run prisma:generate",
+    "prisma:db:push": "npx prisma db push --schema prisma/schema.prisma",
+    "web-intra": "nx serve web-intra",
 
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

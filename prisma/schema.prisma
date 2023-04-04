@@ -60,3 +60,14 @@ model merchants {
 model userInfo {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 }
+
+model customer {
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  userName           String
+  email              String
+  archived           Boolean @default(false)
+  number             String
+  contactName        String
+  contactEmail       String
+  contactPhoneNumber String
+}

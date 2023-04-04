@@ -9,25 +9,22 @@ export class Customer {
   archived: boolean;
 
   @Field({ nullable: true })
-  name?: string;
-
-  @Field({ nullable: true })
-  firstName?: string;
-
-  @Field({ nullable: true })
-  lastName?: string;
+  userName?: string;
 
   @Field({ nullable: true })
   email?: string;
 
   @Field({ nullable: true })
-  countryCode?: string;
+  number?: string;
 
   @Field({ nullable: true })
-  mobile?: string;
+  contactName?: string;
 
-  @Field()
-  lastLoginAt?: Date;
+  @Field({ nullable: true })
+  contactEmail?: string;
+
+  @Field({ nullable: true })
+  contactPhoneNumber?: string;
 
   @Field()
   createdAt?: Date;
