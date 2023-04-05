@@ -2,7 +2,6 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Customer } from './customer.model';
 import { CustomerService } from './customer.service';
 import { CustomerProfile } from './customer.dto';
-import { Console, log } from 'console';
 
 @Resolver(() => Customer)
 export class CustomerResolver {
