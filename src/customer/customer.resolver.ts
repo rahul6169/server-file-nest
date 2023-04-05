@@ -8,22 +8,20 @@ import { Console, log } from 'console';
 export class CustomerResolver {
   constructor(private customerService: CustomerService) {}
 
-  @Query(() => Customer)
-  async dummy() {
-    return;
-  }
-
   @Mutation(() => Customer)
   async createCustomer(
     @Args('createAuthUserDto') createAuthUserDto: CustomerProfile,
   ): Promise<Customer> {
-    console.log(createAuthUserDto, 'sfad');
-
     return await this.customerService.createCustomer(createAuthUserDto);
   }
   @Query(() => Customer)
   async getCustomer(@Args('id') id: string): Promise<Customer> {
     return await this.customerService.getCustomer(id);
+  }
+
+  @Query(() => [Customer])
+  async getAllCustomer(): Promise<Customer[]> {
+    return await this.customerService.getAllCustomer();
   }
 
   @Mutation(() => Customer)

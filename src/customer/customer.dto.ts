@@ -2,23 +2,20 @@ import { Field, InputType } from '@nestjs/graphql';
 @InputType()
 export class CustomerProfile {
   @Field({ nullable: true })
-  userName?: string;
+  userName: string;
 
   @Field({ nullable: true })
-  email?: string;
+  email: string;
 
   @Field({ nullable: true })
-  number?: string;
-
-  @Field({ defaultValue: false })
-  archived: boolean;
+  number: string;
 
   @Field({ nullable: true })
-  contactName?: string;
+  contactName: string;
 
   @Field({ nullable: true })
-  contactEmail?: string;
+  contactEmail: string;
 
   @Field({ nullable: true })
-  contactPhoneNumber?: string;
+  contactPhoneNumber: string;
 }

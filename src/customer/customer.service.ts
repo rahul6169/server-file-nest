@@ -18,6 +18,17 @@ export class CustomerService {
       where: { id: id },
     })) as unknown as Customer;
   }
+
+  async getAllCustomer(): Promise<Customer[]> {
+    const customers = (await this.prisma.customer.findMany({
+      where: {
+        archived: false,
+      },
+      orderBy: [{ createdAt: 'desc' }, { id: 'asc' }],
+    })) as Customer[];
+    return customers as unknown as Customer[];
+  }
+
   async deleteCustomer(id: string): Promise<Customer> {
     return (await this.prisma.customer.delete({
       where: { id: id },
