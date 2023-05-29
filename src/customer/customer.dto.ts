@@ -10,6 +10,9 @@ export class CustomerProfile {
   @Field({ nullable: true })
   number: string;
 
+  @Field(() => Number, { nullable: true })
+  age: number;
+
   @Field({ nullable: true })
   contactName: string;
 

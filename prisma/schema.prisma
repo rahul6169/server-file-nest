@@ -14,12 +14,12 @@ type CommunityUsersCommunity {
 }
 
 model merchants {
-  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
-  archived           Boolean   @default(false)
+  id                 String     @id @default(auto()) @map("_id") @db.ObjectId
+  archived           Boolean    @default(false)
   contactEmail       String?
   contactName        String?
   contactPhoneNumber Float?
-  dateInput          DateTime? @db.Date
+  dateInput          DateTime?  @db.Date
   email              String
   notesInput         String?
   number             Float?
@@ -27,19 +27,71 @@ model merchants {
   percent            Int?
   type               String?
   userName           String
-  createdAt          DateTime  @default(now()) @db.Date
-  updatedAt          DateTime  @updatedAt
+  createdAt          DateTime   @default(now()) @db.Date
+  updatedAt          DateTime   @updatedAt
+  user               user[]
+  customer           customer[]
+}
+
+model user {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  archived    Boolean    @default(false)
+  name        String?
+  userEmail   String?
+  merchants   merchants? @relation(fields: [merchantsId], references: [id])
+  merchantsId String?    @db.ObjectId
 }
 
 model customer {
-  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                 String     @id @default(auto()) @map("_id") @db.ObjectId
   userName           String
+  merchants          merchants? @relation(fields: [merchantsId], references: [id])
+  merchantsId        String?    @db.ObjectId
   email              String
-  archived           Boolean  @default(false)
+  archived           Boolean    @default(false)
   number             String
   contactName        String
   contactEmail       String
   contactPhoneNumber String
-  createdAt          DateTime @default(now()) @db.Date
-  updatedAt          DateTime @updatedAt
+  createdAt          DateTime   @default(now()) @db.Date
+  updatedAt          DateTime   @updatedAt
+}
+
+model Skill {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  Name       String
+  archived   Boolean    @default(false)
+  tagIds     String[]   @db.ObjectId
+  tags       Tag[]      @relation(fields: [tagIds], references: [id])
+  createdAt  DateTime   @default(now()) @db.Date
+  updatedAt  DateTime   @updatedAt
+  Employee   Employee[] @relation(fields: [employeeId], references: [id])
+  employeeId String[]   @db.ObjectId
+}
+
+model Tag {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  archived   Boolean   @default(false)
+  Name       String
+  createdAt  DateTime  @default(now()) @db.Date
+  updatedAt  DateTime  @updatedAt
+  skillId    String[]  @db.ObjectId
+  Skills     Skill[]   @relation(fields: [skillId], references: [id])
+  Employee   Employee? @relation(fields: [employeeId], references: [id])
+  employeeId String?   @db.ObjectId
+}
+
+model Employee {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  Name      String
+  Email     String?   @unique
+  Phone     String?
+  archived  Boolean   @default(false)
+  dob       DateTime? @db.Date
+  doj       DateTime? @db.Date
+  skills    Skill[]   @relation(fields: [skillsId], references: [id])
+  skillsId  String[]  @db.ObjectId
+  createdAt DateTime  @default(now()) @db.Date
+  updatedAt DateTime  @updatedAt
+  Tag       Tag[]
 }

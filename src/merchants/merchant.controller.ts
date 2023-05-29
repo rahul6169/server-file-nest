@@ -15,7 +15,7 @@ export class MerchantController {
 
   @Post('createMerchant')
   async createMerchant(@Body() merchantData) {
-    // console.log(merchantData);
+    console.log(merchantData, 'dddd');
     const newMerchantData = await this.merchantService.createMerchant(
       merchantData?.formValues,
     );

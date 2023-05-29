@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import { Customer } from './customer.model';
 import { CustomerProfile } from './customer.dto';
-import { Merchant } from 'src/merchants/merchant.constant';
 
 @Injectable()
 export class CustomerService {
@@ -24,6 +23,7 @@ export class CustomerService {
       where: {
         archived: false,
       },
+
       orderBy: [{ createdAt: 'desc' }, { id: 'asc' }],
     })) as Customer[];
     return customers as unknown as Customer[];
@@ -33,5 +33,9 @@ export class CustomerService {
     return (await this.prisma.customer.delete({
       where: { id: id },
     })) as Customer;
+  }
+
+  async stringReturnType(id: string): Promise<String> {
+    if (id) return 'user Created';
   }
 }

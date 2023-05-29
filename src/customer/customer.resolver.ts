@@ -27,4 +27,8 @@ export class CustomerResolver {
   async deleteCustomer(@Args('id') id: string): Promise<Customer> {
     return await this.customerService.deleteCustomer(id);
   }
+  @Mutation(() => String)
+  async stringReturnType(@Args('id') id: string): Promise<String> {
+    return await this.customerService.stringReturnType(id);
+  }
 }
