@@ -80,24 +80,58 @@ export class EmployeeService {
     });
   }
 
-  async getTopSkillsWithCount(): Promise<{ skills: string; count: number }[]> {
-    const skillWithCount = await this.prisma.employee.groupBy({
-      by: ['skillsId'],
-
-      _count: { skillsId: true },
-      orderBy: { _count: { skillsId: 'desc' } },
-      take: 5,
+  async getTopSkillsWithCount(): Promise<Skill[]> {
+    const skillWithCount = await this.prisma.employee.aggregateRaw({
+      pipeline: [
+        {
+          $unwind: {
+            path: '$skillsId',
+            includeArrayIndex: 'string',
+            preserveNullAndEmptyArrays: false,
+          },
+        },
+        {
+          $group: {
+            _id: {
+              _id: '$skillsId',
+            },
+            count: {
+              $count: {},
+            },
+          },
+        },
+        {
+          $project: {
+            _id: '$_id._id',
+            count: '$count',
+          },
+        },
+        {
+          $lookup: {
+            from: 'Skill',
+            localField: '_id',
+            foreignField: '_id',
+            as: 'skill',
+          },
+        },
+        {
+          $unwind: {
+            path: '$skill',
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $project: {
+            _id: '$skill._id',
+            count: '$count',
+            Name: '$skill.Name',
+          },
+        },
+      ],
     });
 
-    const skillsWithCount = await Promise.all(
-      skillWithCount.map(async ({ skillsId, _count }) => {
-        const skills = await this.prisma.skill.findUnique({
-          where: { id: skillsId[0] },
-        });
-        return { skills: skills?.Name || '', count: _count.skillsId };
-      }),
-    );
+    console.log(skillWithCount);
 
-    return skillsWithCount;
+    return skillWithCount as unknown as Skill[];
   }
 }

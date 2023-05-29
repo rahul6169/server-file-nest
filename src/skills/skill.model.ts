@@ -14,4 +14,7 @@ export class Skill {
 
   @Field(() => [Tag], { nullable: true })
   tags: Tag[];
+
+  @Field({ nullable: true })
+  count?: number;
 }
