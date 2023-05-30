@@ -4,6 +4,7 @@ import { EmployeeDto, FilterBySkill } from './employee.dto';
 import { Employee } from './employee.model';
 import { Prisma } from '@prisma/client';
 import { Skill } from 'src/skills/skill.model';
+import { Tag } from 'src/tags/tag.model';
 
 @Injectable()
 export class EmployeeService {
@@ -133,5 +134,60 @@ export class EmployeeService {
     console.log(skillWithCount);
 
     return skillWithCount as unknown as Skill[];
+  }
+
+  async getTopTagWithCount(): Promise<Tag[]> {
+    const TagWithCount = await this.prisma.employee.aggregateRaw({
+      pipeline: [
+        {
+          $lookup: {
+            from: 'Skill',
+            localField: 'skillsId',
+            foreignField: '_id',
+            as: 'skills',
+          },
+        },
+        {
+          $unwind: {
+            path: '$skills',
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $lookup: {
+            from: 'Tag',
+            localField: 'skills.tagIds',
+            foreignField: '_id',
+            as: 'tag',
+          },
+        },
+        {
+          $unwind: {
+            path: '$tag',
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $group: {
+            _id: {
+              tagIds: '$tag',
+            },
+            count: {
+              $count: {},
+            },
+          },
+        },
+        {
+          $project: {
+            Name: '$_id.tagIds.Name',
+            count: '$count',
+          },
+        },
+      ],
+    });
+
+    console.log(TagWithCount);
+
+    return TagWithCount as unknown as Tag[];
   }
 }

@@ -10,4 +10,7 @@ export class Tag {
 
   @Field({ nullable: true })
   Name: string;
+
+  @Field({ nullable: true })
+  count?: number;
 }

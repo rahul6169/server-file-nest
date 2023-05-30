@@ -11,6 +11,7 @@ import { Employee, employeeCount } from './employee.model';
 import { EmployeeDto, FilterBySkill } from './employee.dto';
 import { EmployeeService } from './employee.service';
 import { Skill } from 'src/skills/skill.model';
+import { Tag } from 'src/tags/tag.model';
 
 @Resolver(() => Employee)
 export class EmployeeResolver {
@@ -68,5 +69,10 @@ export class EmployeeResolver {
   @Query(() => [Skill])
   async skillCount(): Promise<Skill[]> {
     return await this.employeeService.getTopSkillsWithCount();
+  }
+
+  @Query(() => [Tag])
+  async tagCount(): Promise<Tag[]> {
+    return await this.employeeService.getTopTagWithCount();
   }
 }
