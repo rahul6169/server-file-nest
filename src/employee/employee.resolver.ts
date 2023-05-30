@@ -67,12 +67,12 @@ export class EmployeeResolver {
     return await this.employeeService.getEmployeeCount();
   }
   @Query(() => [Skill])
-  async skillCount(): Promise<Skill[]> {
+  async getTopSkillsWithCount(): Promise<Skill[]> {
     return await this.employeeService.getTopSkillsWithCount();
   }
 
   @Query(() => [Tag])
-  async tagCount(): Promise<Tag[]> {
+  async getTopTagWithCount(): Promise<Tag[]> {
     return await this.employeeService.getTopTagWithCount();
   }
 }
