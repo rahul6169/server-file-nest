@@ -59,7 +59,7 @@ model customer {
 
 model Skill {
   id         String     @id @default(auto()) @map("_id") @db.ObjectId
-  Name       String
+  Name       String?
   archived   Boolean    @default(false)
   tagIds     String[]   @db.ObjectId
   tags       Tag[]      @relation(fields: [tagIds], references: [id])
@@ -72,7 +72,7 @@ model Skill {
 model Tag {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   archived   Boolean   @default(false)
-  Name       String
+  Name       String?
   createdAt  DateTime  @default(now()) @db.Date
   updatedAt  DateTime  @updatedAt
   skillId    String[]  @db.ObjectId
@@ -83,7 +83,7 @@ model Tag {
 
 model Employee {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  Name      String
+  Name      String?
   Email     String?   @unique
   Phone     String?
   archived  Boolean   @default(false)

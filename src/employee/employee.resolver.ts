@@ -10,8 +10,8 @@ import {
 import { Employee, employeeCount } from './employee.model';
 import { EmployeeDto, FilterBySkill } from './employee.dto';
 import { EmployeeService } from './employee.service';
-import { Skill } from 'src/skills/skill.model';
-import { Tag } from 'src/tags/tag.model';
+import { Skill } from '../skills/skill.model';
+import { Tag } from '../tags/tag.model';
 
 @Resolver(() => Employee)
 export class EmployeeResolver {

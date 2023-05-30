@@ -15,19 +15,19 @@ export class SkillService {
           set: data?.tagIds,
         },
       },
-    }) as unknown as Skill;
+    });
   }
   async getSkill(id: string): Promise<Skill> {
-    return (await this.prisma.skill.findUnique({
+    return await this.prisma.skill.findUnique({
       where: { id: id },
       include: {
         tags: true,
       },
-    })) as Skill;
+    });
   }
 
   async getAllSkills(): Promise<Skill[]> {
-    const skills = (await this.prisma.skill.findMany({
+    const skills = await this.prisma.skill.findMany({
       where: {
         archived: false,
       },
@@ -36,23 +36,23 @@ export class SkillService {
       },
 
       orderBy: [{ Name: 'asc' }, { id: 'asc' }],
-    })) as Skill[];
-    return skills as Skill[];
+    });
+    return skills;
   }
   async deleteSkill(id: string): Promise<Skill> {
-    return (await this.prisma.skill.update({
+    return await this.prisma.skill.update({
       where: { id },
       data: {
         archived: true,
       },
-    })) as unknown as Skill;
+    });
   }
   async updateSkill(data: SkillDto, id: string): Promise<Skill> {
-    return (await this.prisma.skill.update({
+    return await this.prisma.skill.update({
       where: { id: id },
       data: {
         Name: data?.Name,
       },
-    })) as unknown as Skill;
+    });
   }
 }

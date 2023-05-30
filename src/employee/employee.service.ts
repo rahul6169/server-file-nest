@@ -3,8 +3,8 @@ import { PrismaService } from 'prisma/prisma.service';
 import { EmployeeDto, FilterBySkill } from './employee.dto';
 import { Employee } from './employee.model';
 import { Prisma } from '@prisma/client';
-import { Skill } from 'src/skills/skill.model';
-import { Tag } from 'src/tags/tag.model';
+import { Skill } from '../skills/skill.model';
+import { Tag } from '../tags/tag.model';
 
 @Injectable()
 export class EmployeeService {
@@ -18,15 +18,15 @@ export class EmployeeService {
           set: data?.skillsId,
         },
       },
-    }) as unknown as Employee;
+    });
   }
   async getEmployee(id: string): Promise<Employee> {
-    return (await this.prisma.employee.findUnique({
+    return await this.prisma.employee.findUnique({
       where: { id: id },
       include: {
         skills: true,
       },
-    })) as unknown as Employee;
+    });
   }
 
   async getAllEmployee(filter: FilterBySkill): Promise<Employee[]> {
@@ -40,7 +40,7 @@ export class EmployeeService {
       };
     }
 
-    const employees = (await this.prisma.employee.findMany({
+    const employees = await this.prisma.employee.findMany({
       where: {
         ...filterQuery,
         archived: false,
@@ -50,19 +50,19 @@ export class EmployeeService {
       },
 
       orderBy: [{ Name: 'asc' }],
-    })) as unknown as Employee[];
-    return employees as unknown as Employee[];
+    });
+    return employees;
   }
   async deleteEmployee(id: string): Promise<Employee> {
-    return (await this.prisma.employee.update({
+    return await this.prisma.employee.update({
       where: { id },
       data: {
         archived: true,
       },
-    })) as unknown as Employee;
+    });
   }
   async updateEmployee(data: EmployeeDto, id: string): Promise<Employee> {
-    return (await this.prisma.employee.update({
+    return await this.prisma.employee.update({
       where: { id: id },
       data: {
         ...data,
@@ -70,7 +70,7 @@ export class EmployeeService {
           push: data?.skillsId,
         },
       },
-    })) as unknown as Employee;
+    });
   }
 
   async getEmployeeCount(): Promise<Number> {

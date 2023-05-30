@@ -13,9 +13,9 @@ export class TagService {
     });
   }
   async getTag(id: string): Promise<Tag> {
-    return (await this.prisma.tag.findUnique({
+    return await this.prisma.tag.findUnique({
       where: { id: id },
-    })) as unknown as Tag;
+    });
   }
 
   async getAllTags(): Promise<Tag[]> {
@@ -24,20 +24,20 @@ export class TagService {
         archived: false,
       },
     });
-    return Tags as unknown as Tag[];
+    return Tags;
   }
   async deleteTag(id: string): Promise<Tag> {
-    return (await this.prisma.tag.update({
+    return await this.prisma.tag.update({
       where: { id },
       data: {
         archived: true,
       },
-    })) as unknown as Tag;
+    });
   }
   async updateTag(data: TagDto, id: string): Promise<Tag> {
-    return (await this.prisma.tag.update({
+    return await this.prisma.tag.update({
       where: { id: id },
       data: data,
-    })) as unknown as Tag;
+    });
   }
 }

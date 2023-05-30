@@ -4,22 +4,22 @@ import { Skill } from 'src/skills/skill.model';
 @InputType()
 export class EmployeeDto {
   @Field(() => String, { nullable: true })
-  Name: string;
+  Name?: string;
 
   @Field(() => String, { nullable: true })
-  Email: string;
+  Email?: string;
 
   @Field(() => String, { nullable: true })
-  Phone: string;
+  Phone?: string;
 
   @Field(() => Date, { nullable: true })
-  doj: Date;
+  doj?: Date;
 
   @Field(() => Date, { nullable: true })
-  dob: Date;
+  dob?: Date;
 
   @Field(() => [String], { nullable: true })
-  skillsId: string[];
+  skillsId?: string[];
 }
 
 @InputType()
