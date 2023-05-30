@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import { Skill } from './skill.model';
 import { SkillDto } from './skill.dto';
+import { GetSkillIdArgs } from './skill.args';
 
 @Injectable()
 export class SkillService {
@@ -17,9 +18,9 @@ export class SkillService {
       },
     });
   }
-  async getSkill(id: string): Promise<Skill> {
+  async getSkill(id: GetSkillIdArgs): Promise<Skill> {
     return await this.prisma.skill.findUnique({
-      where: { id: id },
+      where: { id: id?.id },
       include: {
         tags: true,
       },

@@ -1,7 +1,8 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { SkillService } from './skill.service';
-import { Skill } from './skill.model';
+import { GetSkillIdArgs } from './skill.args';
 import { SkillDto } from './skill.dto';
+import { Skill } from './skill.model';
+import { SkillService } from './skill.service';
 
 @Resolver(() => Skill)
 export class SkillResolver {
@@ -13,8 +14,8 @@ export class SkillResolver {
     return await this.skillService.createSkill(createskill);
   }
   @Query(() => Skill)
-  async getSkill(@Args('id') id: string): Promise<Skill> {
-    return await this.skillService.getSkill(id);
+  async getSkill(@Args() args: GetSkillIdArgs): Promise<Skill> {
+    return await this.skillService.getSkill(args);
   }
 
   @Query(() => [Skill])
@@ -24,8 +25,8 @@ export class SkillResolver {
 
   @Query(() => [Skill])
   async updateSkill(
-    @Args('updateSkill') @Args('id') id: string,
-    updateSkill: SkillDto,
+    @Args('id') id: string,
+    @Args('updateSkill') updateSkill: SkillDto,
   ): Promise<Skill> {
     return await this.skillService.updateSkill(updateSkill, id);
   }
