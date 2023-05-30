@@ -85,6 +85,11 @@ export class EmployeeService {
     const skillWithCount = await this.prisma.employee.aggregateRaw({
       pipeline: [
         {
+          $match: {
+            archived: false,
+          },
+        },
+        {
           $unwind: {
             path: '$skillsId',
             includeArrayIndex: 'string',
@@ -115,10 +120,16 @@ export class EmployeeService {
             as: 'skill',
           },
         },
+
         {
           $unwind: {
             path: '$skill',
             preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $match: {
+            'skill.archived': false,
           },
         },
         {
@@ -146,6 +157,11 @@ export class EmployeeService {
     const TagWithCount = await this.prisma.employee.aggregateRaw({
       pipeline: [
         {
+          $match: {
+            archived: false,
+          },
+        },
+        {
           $lookup: {
             from: 'Skill',
             localField: 'skillsId',
@@ -160,6 +176,11 @@ export class EmployeeService {
           },
         },
         {
+          $match: {
+            'skills.archived': false,
+          },
+        },
+        {
           $lookup: {
             from: 'Tag',
             localField: 'skills.tagIds',
@@ -171,6 +192,11 @@ export class EmployeeService {
           $unwind: {
             path: '$tag',
             preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $match: {
+            'tag.archived': false,
           },
         },
         {
