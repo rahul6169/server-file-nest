@@ -49,7 +49,7 @@ export class EmployeeService {
         skills: true,
       },
 
-      orderBy: [{ Name: 'asc' }, { id: 'asc' }],
+      orderBy: [{ Name: 'asc' }],
     })) as unknown as Employee[];
     return employees as unknown as Employee[];
   }
@@ -123,20 +123,21 @@ export class EmployeeService {
         },
         {
           $project: {
-            _id: '$skill._id',
-            count: '$count',
+            id: { $toString: '$skill._id' },
+            employeeCount: '$count',
             Name: '$skill.Name',
           },
         },
         {
           $sort: {
-            count: -1,
+            employeeCount: -1,
           },
+        },
+        {
+          $limit: 5,
         },
       ],
     });
-
-    console.log(skillWithCount);
 
     return skillWithCount as unknown as Skill[];
   }
@@ -184,13 +185,14 @@ export class EmployeeService {
         },
         {
           $project: {
+            id: { $toString: '$_id.tagIds._id' },
             Name: '$_id.tagIds.Name',
-            count: '$count',
+            employeeCount: '$count',
           },
         },
         {
           $sort: {
-            count: -1,
+            employeeCount: -1,
           },
         },
       ],

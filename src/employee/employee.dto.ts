@@ -25,8 +25,5 @@ export class EmployeeDto {
 @InputType()
 export class FilterBySkill {
   @Field(() => String, { nullable: true })
-  search?: string;
-
-  @Field(() => String, { nullable: true })
   skillId: string;
 }

@@ -35,7 +35,7 @@ export class EmployeeResolver {
   }
 
   @ResolveField(() => Float)
-  async getAge(@Parent() employee: Employee): Promise<number> {
+  async age(@Parent() employee: Employee): Promise<number> {
     const dob = employee.dob;
     const currentDate = new Date();
     const birthDate = new Date(dob);

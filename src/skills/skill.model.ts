@@ -16,5 +16,5 @@ export class Skill {
   tags: Tag[];
 
   @Field({ nullable: true })
-  count?: number;
+  employeeCount?: number;
 }
