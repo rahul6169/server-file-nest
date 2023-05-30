@@ -128,6 +128,11 @@ export class EmployeeService {
             Name: '$skill.Name',
           },
         },
+        {
+          $sort: {
+            count: -1,
+          },
+        },
       ],
     });
 
@@ -181,6 +186,11 @@ export class EmployeeService {
           $project: {
             Name: '$_id.tagIds.Name',
             count: '$count',
+          },
+        },
+        {
+          $sort: {
+            count: -1,
           },
         },
       ],
