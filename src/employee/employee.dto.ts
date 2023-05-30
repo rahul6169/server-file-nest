@@ -1,5 +1,4 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { Skill } from 'src/skills/skill.model';
+import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class EmployeeDto {

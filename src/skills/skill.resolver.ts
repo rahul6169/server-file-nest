@@ -14,8 +14,8 @@ export class SkillResolver {
     return await this.skillService.createSkill(createskill);
   }
   @Query(() => Skill)
-  async getSkill(@Args() args: GetSkillIdArgs): Promise<Skill> {
-    return await this.skillService.getSkill(args);
+  async getSkill(@Args() id: GetSkillIdArgs): Promise<Skill> {
+    return await this.skillService.getSkill(id);
   }
 
   @Query(() => [Skill])
