@@ -44,15 +44,15 @@ model user {
 
 model customer {
   id                 String     @id @default(auto()) @map("_id") @db.ObjectId
-  userName           String
+  userName           String?
   merchants          merchants? @relation(fields: [merchantsId], references: [id])
   merchantsId        String?    @db.ObjectId
-  email              String
+  email              String?
   archived           Boolean    @default(false)
-  number             String
-  contactName        String
-  contactEmail       String
-  contactPhoneNumber String
+  number             String?
+  contactName        String?
+  contactEmail       String?
+  contactPhoneNumber String?
   createdAt          DateTime   @default(now()) @db.Date
   updatedAt          DateTime   @updatedAt
 }

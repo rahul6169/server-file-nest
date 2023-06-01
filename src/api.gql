@@ -3,15 +3,14 @@
 # ------------------------------------------------------
 
 type Customer {
-  archived: Boolean!
   contactEmail: String
   contactName: String
   contactPhoneNumber: String
-  createdAt: DateTime!
+  createdAt: DateTime
   email: String
-  id: String!
+  id: String
   number: String
-  updatedAt: DateTime!
+  updatedAt: DateTime
   userName: String
 }
 
@@ -32,12 +31,11 @@ scalar DateTime
 
 type Employee {
   Email: String
-  Name: String
   Phone: String
   age: Float
   dob: DateTime
   doj: DateTime
-  id: String!
+  id: String
   skills: [Skill!]
 }
 
@@ -65,6 +63,7 @@ type Mutation {
   deleteTag(id: String!): Tag!
   stringReturnType(id: String!): String!
   updateEmployee(id: String!, updateEmployee: EmployeeDto!): [Employee!]!
+  updateTag(id: String!, updateTag: String!): [Tag!]!
 }
 
 type Query {
@@ -80,14 +79,12 @@ type Query {
   getTopSkillsWithCount: [Skill!]!
   getTopTagWithCount: [Tag!]!
   updateSkill(id: String!, updateSkill: SkillDto!): [Skill!]!
-  updateTag(id: String!, updateTag: String!): [Tag!]!
 }
 
 type Skill {
   Name: String
-  archived: Boolean!
   employeeCount: Float
-  id: String!
+  id: String
   tags: [Tag!]
 }
 
@@ -98,9 +95,8 @@ input SkillDto {
 
 type Tag {
   Name: String
-  archived: Boolean!
   employeeCount: Float
-  id: String!
+  id: String
 }
 
 input TagDto {

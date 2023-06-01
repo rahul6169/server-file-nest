@@ -2,11 +2,8 @@ import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Customer {
-  @Field()
-  id?: string;
-
-  @Field({ defaultValue: false })
-  archived: boolean;
+  @Field({ nullable: true })
+  id: string;
 
   @Field({ nullable: true })
   userName?: string;
@@ -26,9 +23,9 @@ export class Customer {
   @Field({ nullable: true })
   contactPhoneNumber?: string;
 
-  @Field()
+  @Field({ nullable: true })
   createdAt?: Date;
 
-  @Field()
+  @Field({ nullable: true })
   updatedAt?: Date;
 }

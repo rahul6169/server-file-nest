@@ -2,11 +2,8 @@ import { Field, Float, ObjectType } from '@nestjs/graphql';
 import { Skill } from '../skills/skill.model';
 @ObjectType()
 export class Employee {
-  @Field()
+  @Field({ nullable: true })
   id: string;
-
-  @Field(() => String, { nullable: true })
-  Name?: string;
 
   @Field(() => String, { nullable: true })
   Email?: string;
@@ -28,8 +25,8 @@ export class Employee {
 }
 @ObjectType()
 export class employeeCount {
-  @Field(() => String)
-  skills: string;
-  @Field(() => Float)
-  count: number;
+  @Field(() => String, { nullable: true })
+  skills?: string;
+  @Field(() => Float, { nullable: true })
+  count?: number;
 }

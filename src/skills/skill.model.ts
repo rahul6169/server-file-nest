@@ -3,11 +3,8 @@ import { Tag } from 'src/tags/tag.model';
 
 @ObjectType()
 export class Skill {
-  @Field()
+  @Field({ nullable: true })
   id: string;
-
-  @Field({ defaultValue: false })
-  archived: boolean;
 
   @Field(() => String, { nullable: true })
   Name?: string;

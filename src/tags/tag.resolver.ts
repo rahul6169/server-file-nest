@@ -20,7 +20,7 @@ export class TagResolver {
     return await this.tagService.getAllTags();
   }
 
-  @Query(() => [Tag])
+  @Mutation(() => [Tag])
   async updateTag(
     @Args('updateTag') @Args('id') id: string,
     updateTag: TagDto,
