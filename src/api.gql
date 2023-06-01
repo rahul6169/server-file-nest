@@ -1,0 +1,108 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Customer {
+  archived: Boolean!
+  contactEmail: String
+  contactName: String
+  contactPhoneNumber: String
+  createdAt: DateTime!
+  email: String
+  id: String!
+  number: String
+  updatedAt: DateTime!
+  userName: String
+}
+
+input CustomerProfile {
+  age: Float
+  contactEmail: String
+  contactName: String
+  contactPhoneNumber: String
+  email: String
+  number: String
+  userName: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Employee {
+  Email: String
+  Name: String
+  Phone: String
+  age: Float
+  dob: DateTime
+  doj: DateTime
+  id: String!
+  skills: [Skill!]
+}
+
+input EmployeeDto {
+  Email: String
+  Name: String
+  Phone: String
+  dob: DateTime
+  doj: DateTime
+  skillsId: [String!]
+}
+
+input FilterBySkill {
+  skillId: String
+}
+
+type Mutation {
+  createCustomer(createAuthUserDto: CustomerProfile!): Customer!
+  createEmployee(createEmployee: EmployeeDto!): Employee!
+  createSkill(createskill: SkillDto!): Skill!
+  createTag(createTag: TagDto!): Tag!
+  deleteCustomer(id: String!): Customer!
+  deleteEmployee(id: String!): Employee!
+  deleteSkill(id: String!): Skill!
+  deleteTag(id: String!): Tag!
+  stringReturnType(id: String!): String!
+  updateEmployee(id: String!, updateEmployee: EmployeeDto!): [Employee!]!
+}
+
+type Query {
+  getAllCustomer: [Customer!]!
+  getAllEmployee(filter: FilterBySkill): [Employee!]!
+  getAllSkills: [Skill!]!
+  getAllTags: [Tag!]!
+  getCustomer(id: String!): Customer!
+  getEmployee(id: String!): Employee!
+  getEmployeeCount: Float!
+  getSkill(id: String!): Skill!
+  getTag(id: String!): Tag!
+  getTopSkillsWithCount: [Skill!]!
+  getTopTagWithCount: [Tag!]!
+  updateSkill(id: String!, updateSkill: SkillDto!): [Skill!]!
+  updateTag(id: String!, updateTag: String!): [Tag!]!
+}
+
+type Skill {
+  Name: String
+  archived: Boolean!
+  employeeCount: Float
+  id: String!
+  tags: [Tag!]
+}
+
+input SkillDto {
+  Name: String
+  tagIds: [String!]
+}
+
+type Tag {
+  Name: String
+  archived: Boolean!
+  employeeCount: Float
+  id: String!
+}
+
+input TagDto {
+  Name: String
+}
