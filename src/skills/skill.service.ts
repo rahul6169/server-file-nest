@@ -53,6 +53,9 @@ export class SkillService {
       where: { id: id },
       data: {
         Name: data?.Name,
+        tagIds: {
+          set: data?.tagIds,
+        },
       },
     });
   }

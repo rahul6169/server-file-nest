@@ -50,7 +50,7 @@ export class EmployeeResolver {
     return age;
   }
 
-  @Mutation(() => [Employee])
+  @Mutation(() => Employee)
   async updateEmployee(
     @Args('updateEmployee') updateEmployee: EmployeeDto,
     @Args('id') id: string,

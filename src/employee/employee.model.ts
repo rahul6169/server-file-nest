@@ -6,6 +6,9 @@ export class Employee {
   id: string;
 
   @Field(() => String, { nullable: true })
+  Name?: string;
+
+  @Field(() => String, { nullable: true })
   Email?: string;
 
   @Field(() => String, { nullable: true })

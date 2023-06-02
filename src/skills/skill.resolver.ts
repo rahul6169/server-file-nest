@@ -23,11 +23,12 @@ export class SkillResolver {
     return await this.skillService.getAllSkills();
   }
 
-  @Query(() => [Skill])
+  @Mutation(() => Skill)
   async updateSkill(
     @Args('id') id: string,
     @Args('updateSkill') updateSkill: SkillDto,
   ): Promise<Skill> {
+    console.log(updateSkill);
     return await this.skillService.updateSkill(updateSkill, id);
   }
   @Mutation(() => Skill)

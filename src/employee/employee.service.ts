@@ -169,12 +169,7 @@ export class EmployeeService {
             as: 'skills',
           },
         },
-        {
-          $unwind: {
-            path: '$skills',
-            preserveNullAndEmptyArrays: true,
-          },
-        },
+
         {
           $match: {
             'skills.archived': false,
@@ -220,6 +215,9 @@ export class EmployeeService {
           $sort: {
             employeeCount: -1,
           },
+        },
+        {
+          $limit: 5,
         },
       ],
     });

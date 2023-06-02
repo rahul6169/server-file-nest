@@ -6,8 +6,10 @@ import { Tag } from './tag.model';
 @Resolver(() => Tag)
 export class TagResolver {
   constructor(private tagService: TagService) {}
+
   @Mutation(() => Tag)
   async createTag(@Args('createTag') createTag: TagDto): Promise<Tag> {
+    console.log(createTag);
     return await this.tagService.createTag(createTag);
   }
   @Query(() => Tag)
@@ -20,10 +22,11 @@ export class TagResolver {
     return await this.tagService.getAllTags();
   }
 
-  @Mutation(() => [Tag])
+  @Mutation(() => Tag)
   async updateTag(
-    @Args('updateTag') @Args('id') id: string,
-    updateTag: TagDto,
+    @Args('id') id: string,
+
+    @Args('updateTag') updateTag: TagDto,
   ): Promise<Tag> {
     return await this.tagService.updateTag(updateTag, id);
   }

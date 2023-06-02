@@ -31,6 +31,7 @@ scalar DateTime
 
 type Employee {
   Email: String
+  Name: String
   Phone: String
   age: Float
   dob: DateTime
@@ -62,8 +63,9 @@ type Mutation {
   deleteSkill(id: String!): Skill!
   deleteTag(id: String!): Tag!
   stringReturnType(id: String!): String!
-  updateEmployee(id: String!, updateEmployee: EmployeeDto!): [Employee!]!
-  updateTag(id: String!, updateTag: String!): [Tag!]!
+  updateEmployee(id: String!, updateEmployee: EmployeeDto!): Employee!
+  updateSkill(id: String!, updateSkill: SkillDto!): Skill!
+  updateTag(id: String!, updateTag: TagDto!): Tag!
 }
 
 type Query {
@@ -78,7 +80,6 @@ type Query {
   getTag(id: String!): Tag!
   getTopSkillsWithCount: [Skill!]!
   getTopTagWithCount: [Tag!]!
-  updateSkill(id: String!, updateSkill: SkillDto!): [Skill!]!
 }
 
 type Skill {
@@ -96,7 +97,7 @@ input SkillDto {
 type Tag {
   Name: String
   employeeCount: Float
-  id: String
+  id: String!
 }
 
 input TagDto {
