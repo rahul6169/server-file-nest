@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import { EmployeeDto, FilterBySkill } from './employee.dto';
 import { Employee } from './employee.model';
@@ -11,14 +11,21 @@ export class EmployeeService {
   constructor(private readonly prisma: PrismaService) {}
 
   async createEmployee(data: EmployeeDto): Promise<Employee> {
-    return this.prisma.employee.create({
-      data: {
-        ...data,
-        skillsId: {
-          set: data?.skillsId,
+    try {
+      return this.prisma.employee.create({
+        data: {
+          ...data,
+          skillsId: {
+            set: data?.skillsId,
+          },
         },
-      },
-    });
+      });
+    } catch (error) {
+      if (error?.code === 'P2002') {
+        throw new HttpException('Email already Exists', 500);
+      }
+      throw new HttpException(error, 500);
+    }
   }
   async getEmployee(id: string): Promise<Employee> {
     return await this.prisma.employee.findUnique({

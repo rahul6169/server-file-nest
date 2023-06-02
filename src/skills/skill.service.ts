@@ -36,7 +36,7 @@ export class SkillService {
         tags: true,
       },
 
-      orderBy: [{ Name: 'asc' }, { id: 'asc' }],
+      orderBy: [{ Name: 'asc' }],
     });
     return skills;
   }

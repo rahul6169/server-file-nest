@@ -84,7 +84,7 @@ model Tag {
 model Employee {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   Name      String?
-  Email     String?   @unique
+  Email     String?   @unique(map: "Email_1")
   Phone     String?
   archived  Boolean   @default(false)
   dob       DateTime? @db.Date
