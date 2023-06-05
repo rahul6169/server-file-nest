@@ -13,26 +13,26 @@ export class CustomerService {
     });
   }
   async getCustomer(id: string): Promise<Customer> {
-    return (await this.prisma.customer.findUnique({
+    return await this.prisma.customer.findUnique({
       where: { id: id },
-    })) as unknown as Customer;
+    });
   }
 
   async getAllCustomer(): Promise<Customer[]> {
-    const customers = (await this.prisma.customer.findMany({
+    const customers = await this.prisma.customer.findMany({
       where: {
         archived: false,
       },
 
       orderBy: [{ createdAt: 'desc' }, { id: 'asc' }],
-    })) as Customer[];
-    return customers as unknown as Customer[];
+    });
+    return customers;
   }
 
   async deleteCustomer(id: string): Promise<Customer> {
-    return (await this.prisma.customer.delete({
+    return await this.prisma.customer.delete({
       where: { id: id },
-    })) as Customer;
+    });
   }
 
   async stringReturnType(id: string): Promise<String> {
