@@ -74,7 +74,7 @@ export class EmployeeService {
       data: {
         ...data,
         skillsId: {
-          push: data?.skillsId,
+          set: data?.skillsId,
         },
       },
     });
