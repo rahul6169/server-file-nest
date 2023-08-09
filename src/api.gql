@@ -56,6 +56,7 @@ input FilterBySkill {
 type Mutation {
   createCustomer(createAuthUserDto: CustomerProfile!): Customer!
   createEmployee(createEmployee: EmployeeDto!): Employee!
+  createPaymentOrder(amount: Float!, currency: String!): RazorPay!
   createSkill(createskill: SkillDto!): Skill!
   createTag(createTag: TagDto!): Tag!
   deleteCustomer(id: String!): Customer!
@@ -80,6 +81,12 @@ type Query {
   getTag(id: String!): Tag!
   getTopSkillsWithCount: [Skill!]!
   getTopTagWithCount: [Tag!]!
+}
+
+type RazorPay {
+  amount: Float
+  id: String
+  orderId: String
 }
 
 type Skill {

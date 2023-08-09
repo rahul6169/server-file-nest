@@ -95,3 +95,9 @@ model Employee {
   updatedAt DateTime  @updatedAt
   Tag       Tag[]
 }
+
+model Razorpay {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  amount  Int
+  orderId String?
+}
