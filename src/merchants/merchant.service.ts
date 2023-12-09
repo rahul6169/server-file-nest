@@ -36,6 +36,15 @@ export class MerchantService {
     return createdMerchant;
   }
 
+  async createEmailSubscribe(email: string): Promise<Merchant> {
+    // merchantsData?.push(idUpdatedMerchantData);
+    console.log(email, 'hi');
+    const createdMerchant = await this.merchantModel.create(email);
+    // console.log(createdMerchant);
+
+    return createdMerchant;
+  }
+
   async getAllMerchants(): Promise<Merchant[]> {
     const getMerchantData = merchantsData.filter(
       (merchant) => merchant.archived == false,

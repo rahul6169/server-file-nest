@@ -22,6 +22,15 @@ export class MerchantController {
     return newMerchantData;
   }
 
+  @Post('createEmail')
+  async createEmail(@Body() email) {
+    console.log(email, 'dddd');
+    const newMerchantData = await this.merchantService.createEmailSubscribe(
+      email,
+    );
+    return newMerchantData;
+  }
+
   @Get('getAllMerchants')
   async getAllMerchants() {
     return await this.merchantService.getAllMerchants();
