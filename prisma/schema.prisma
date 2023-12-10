@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = "mongodb+srv://Kishore_411:Tn34af0146I@cluster0.soeymkk.mongodb.net/test"
+  url      = "mongodb+srv://naveenarasu28:c6VqoRzvFHnn2fuY@cluster0.pku1bax.mongodb.net/Email_Subscribers"
 }
 
 type CommunityUsersCommunity {
